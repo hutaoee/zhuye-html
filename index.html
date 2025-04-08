@@ -190,29 +190,6 @@
             background-color: #0056b3;
         }
 
-        /* 检测系统主题 */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #333;
-                color: #18bd6a;
-            }
-
-            .container {
-                background-color: #444;
-            }
-
-            .link-item {
-                background-color: #555;
-            }
-
-            .link-item a {
-                color: #fff;
-            }
-
-            .link-item a:hover .link-text {
-                color: #dcc26b;
-            }
-        }
     </style>
 </head>
 <body>
@@ -275,29 +252,36 @@
     </div>
 
     <script>
-        // 页面加载时，检测并设置用户主题
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.body.classList.add(savedTheme);
-                document.querySelector('.container').classList.add(savedTheme);
-            }
-        });
+        // 自动检测系统的主题，并根据系统的主题来应用样式
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-        // 切换主题功能
+        // 页面加载时检查系统主题
+        function applySystemTheme() {
+            if (prefersDarkScheme.matches) {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.container').classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.querySelector('.container').classList.remove('dark-mode');
+            }
+        }
+
+        // 手动切换主题
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             document.querySelector('.container').classList.toggle('dark-mode');
-
-            // 保存当前主题设置
             if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark-mode');
-                document.querySelector('.theme-toggle').innerHTML = '🌞'; // Light mode icon
+                document.querySelector('.theme-toggle').innerHTML = '🌞'; // 显示浅色模式按钮
             } else {
-                localStorage.setItem('theme', ''); // 清除深色模式
-                document.querySelector('.theme-toggle').innerHTML = '🌙'; // Dark mode icon
+                document.querySelector('.theme-toggle').innerHTML = '🌙'; // 显示深色模式按钮
             }
         }
+
+        // 监听系统主题变化并实时切换
+        prefersDarkScheme.addEventListener('change', applySystemTheme);
+
+        // 初始应用系统主题
+        applySystemTheme();
     </script>
 </body>
 </html>
