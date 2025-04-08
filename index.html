@@ -16,7 +16,7 @@
 
         body {
             background-color: #f4f4f9;
-            color: #5d5da2; /* 默认黑色字体 */
+            color: #5d5da2;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,8 +26,8 @@
         }
 
         body.dark-mode {
-            background-color: #333; /* 深色背景 */
-            color: #18bd6a; /* 深色模式字体设置为绿色 */
+            background-color: #333;
+            color: #18bd6a;
         }
 
         .container {
@@ -41,7 +41,7 @@
         }
 
         .container.dark-mode {
-            background-color: #444; /* 深色模式下容器背景色 */
+            background-color: #444;
         }
 
         .profile {
@@ -69,7 +69,7 @@
 
         .bio {
             font-size: 15px;
-            color: #c36969; /* 默认粉色 */
+            color: #c36969;
             margin-bottom: -25px;
         }
 
@@ -96,7 +96,7 @@
             align-items: center;
             padding: 16px 20px;
             text-decoration: none;
-            color: #333; /* 浅色模式下链接文字默认是黑色 */
+            color: #333;
         }
 
         .link-icon {
@@ -110,12 +110,10 @@
             font-weight: 500;
         }
 
-        /* 浅色模式下链接文字悬停时的颜色 */
         .link-item a:hover .link-text {
-            color: #b70000; /* 浅色模式下悬停时文字颜色为红色 */
+            color: #b70000;
         }
 
-        /* 深色模式下 */
         body.dark-mode .link-item {
             background-color: #555;
         }
@@ -125,18 +123,16 @@
         }
 
         body.dark-mode .link-item a {
-            color: #fff; /* 深色模式下文字颜色白色 */
+            color: #fff;
         }
 
-        /* 深色模式下链接文字悬停时的颜色 */
         body.dark-mode .link-item a:hover .link-text {
-            color: #dcc26b; /* 深色模式下悬停时文字颜色为 #dcc26b */
+            color: #dcc26b;
         }
 
-        /* 深色模式下选中的链接文字 */
         body.dark-mode .link-item a::selection {
-            background-color: #006400; /* 深绿色背景 */
-            color: #fff; /* 选中文字颜色为白色 */
+            background-color: #006400;
+            color: #fff;
         }
 
         .beian {
@@ -194,6 +190,29 @@
             background-color: #0056b3;
         }
 
+        /* 检测系统主题 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #333;
+                color: #18bd6a;
+            }
+
+            .container {
+                background-color: #444;
+            }
+
+            .link-item {
+                background-color: #555;
+            }
+
+            .link-item a {
+                color: #fff;
+            }
+
+            .link-item a:hover .link-text {
+                color: #dcc26b;
+            }
+        }
     </style>
 </head>
 <body>
@@ -256,23 +275,27 @@
     </div>
 
     <script>
-        lottie.loadAnimation({
-            container: document.getElementById('lottie-container'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'assets/lottie/AnimatedSticker.json'
+        // 页面加载时，检测并设置用户主题
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.classList.add(savedTheme);
+                document.querySelector('.container').classList.add(savedTheme);
+            }
         });
 
+        // 切换主题功能
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             document.querySelector('.container').classList.toggle('dark-mode');
 
-            const button = document.querySelector('.theme-toggle');
+            // 保存当前主题设置
             if (document.body.classList.contains('dark-mode')) {
-                button.innerHTML = '🌞'; // Light mode icon
+                localStorage.setItem('theme', 'dark-mode');
+                document.querySelector('.theme-toggle').innerHTML = '🌞'; // Light mode icon
             } else {
-                button.innerHTML = '🌙'; // Dark mode icon
+                localStorage.setItem('theme', ''); // 清除深色模式
+                document.querySelector('.theme-toggle').innerHTML = '🌙'; // Dark mode icon
             }
         }
     </script>
