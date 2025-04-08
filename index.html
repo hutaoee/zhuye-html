@@ -16,11 +16,18 @@
 
         body {
             background-color: #f4f4f9;
+            color: #5d5da2; /* 默认黑色字体 */
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 50px 20px;
             min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #333; /* 深色背景 */
+            color: #18bd6a; /* 深色模式字体设置为绿色 */
         }
 
         .container {
@@ -30,6 +37,11 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container.dark-mode {
+            background-color: #444; /* 深色模式下容器背景色 */
         }
 
         .profile {
@@ -52,14 +64,13 @@
         .name {
             font-size: 24px;
             font-weight: 600;
-            color: #333;
             margin-bottom: 10px;
         }
 
         .bio {
-            font-size: 16px;
-            color: #86868b;
-            margin-bottom: 30px;
+            font-size: 15px;
+            color: #c36969; /* 默认粉色 */
+            margin-bottom: -25px;
         }
 
         .links {
@@ -85,7 +96,7 @@
             align-items: center;
             padding: 16px 20px;
             text-decoration: none;
-            color: #1d1d1f;
+            color: #333; /* 浅色模式下链接文字默认是黑色 */
         }
 
         .link-icon {
@@ -97,11 +108,53 @@
         .link-text {
             font-size: 16px;
             font-weight: 500;
-            color: #333;
         }
 
+        /* 浅色模式下链接文字悬停时的颜色 */
         .link-item a:hover .link-text {
-            color: #0d63ff;
+            color: #b70000; /* 浅色模式下悬停时文字颜色为红色 */
+        }
+
+        /* 深色模式下 */
+        body.dark-mode .link-item {
+            background-color: #555;
+        }
+
+        body.dark-mode .link-item:hover {
+            background-color: #666;
+        }
+
+        body.dark-mode .link-item a {
+            color: #fff; /* 深色模式下文字颜色白色 */
+        }
+
+        /* 深色模式下链接文字悬停时的颜色 */
+        body.dark-mode .link-item a:hover .link-text {
+            color: #dcc26b; /* 深色模式下悬停时文字颜色为 #dcc26b */
+        }
+
+        /* 深色模式下选中的链接文字 */
+        body.dark-mode .link-item a::selection {
+            background-color: #006400; /* 深绿色背景 */
+            color: #fff; /* 选中文字颜色为白色 */
+        }
+
+        .beian {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #86868b;
+        }
+
+        .beian a {
+            color: #86868b;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .beian a:hover {
+            color: #1d1d1f;
+            transform: scale(1.05);
         }
 
         @media (max-width: 480px) {
@@ -123,89 +176,82 @@
             }
         }
 
-        .beian {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
-            color: #86868b;
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #0d63ff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1000;
         }
 
-        .beian a {
-            color: #86868b;
-            text-decoration: none;
-            transition: all 0.2s ease;
+        .theme-toggle:hover {
+            background-color: #0056b3;
         }
 
-        .beian a:hover {
-            color: #1d1d1f;
-            transform: scale(1.05);
-        }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     <div class="container">
         <div class="profile">
             <img src="assets/icons/touxiang.jpg" alt="头像" class="avatar">
             <h1 class="name">不辞万里のBio Page</h1>
             <p class="bio">欢迎来到我的个人页面！这里展示了一些"我的个人项目与网站。</p>
         </div>
-<div align="center">
-    <script type="text/javascript" src="https://api.suyanw.cn/api/gushi.php?type=js"></script>
-    <script>
-        suyan();
-    </script>
-    <style>
-        body {
-            color: blue;
-        }
-    </style>
-</div>
-<div style="margin-top: 40px;">
-
-        <ul class="links">
-            <li class="link-item">
-                <a href="https://8tv.227999.xyz" target="_blank">
-                    <img src="assets/icons/8tv.png" alt="8TV影视" class="link-icon">
-                    <span class="link-text">8TV影视</span>
-                </a>
-            </li>
-            <li class="link-item">
-                <a href="https://blog.227999.xyz" target="_blank">
-                    <img src="assets/icons/rss.svg" alt="博客" class="link-icon">
-                    <span class="link-text">个人博客</span>
-                </a>
-            </li>
-            <li class="link-item">
-                <a href="https://dianfei.521511.xyz" target="_blank">
-                    <img src="assets/icons/dianfei.png" alt="电费计算器" class="link-icon">
-                    <span class="link-text">电费计算</span>
-                </a>
-            </li>
-            <li class="link-item">
-                <a href="http://wz.227999.xyz" target="_blank">
-                    <img src="assets/icons/wangzhe.png" alt="王者看看" class="link-icon">
-                    <span class="link-text">王者看看</span>
-                </a>
-            </li>
-            <li class="link-item">
-                <a href="https://vps.521511.xyz" target="_blank">
-                    <img src="assets/icons/vps.png" alt="VPS探针" class="link-icon">
-                    <span class="link-text">VPS探针</span>
-                </a>
-            </li>
-            <li class="link-item">
-                <a href="https://pan.227999.xyz" target="_blank">
-                    <img src="assets/icons/yunpan.svg" alt="个人云盘" class="link-icon">
-                    <span class="link-text">个人云盘</span>
-
-
-
-                </a>
-            </li>
-        </ul>
-
-        <div class="beian">
-            <a href="https://beian.miit.gov.cn/" target="_blank">吉ICP备18001688号-1</a>
+        <div align="center">
+            <script type="text/javascript" src="https://api.suyanw.cn/api/gushi.php?type=js"></script>
+            <script>
+                suyan();
+            </script>
+        </div>
+        <div style="margin-top: 35px;">
+            <ul class="links">
+                <li class="link-item">
+                    <a href="https://8tv.227999.xyz" target="_blank">
+                        <img src="assets/icons/8tv.png" alt="8TV影视" class="link-icon">
+                        <span class="link-text">8TV影视</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://blog.227999.xyz" target="_blank">
+                        <img src="assets/icons/rss.svg" alt="博客" class="link-icon">
+                        <span class="link-text">个人博客</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://dianfei.521511.xyz" target="_blank">
+                        <img src="assets/icons/dianfei.png" alt="电费计算器" class="link-icon">
+                        <span class="link-text">电费计算</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="http://wz.227999.xyz" target="_blank">
+                        <img src="assets/icons/wangzhe.png" alt="王者看看" class="link-icon">
+                        <span class="link-text">王者看看</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://vps.521511.xyz" target="_blank">
+                        <img src="assets/icons/vps.png" alt="VPS探针" class="link-icon">
+                        <span class="link-text">VPS探针</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://pan.227999.xyz" target="_blank">
+                        <img src="assets/icons/yunpan.svg" alt="个人云盘" class="link-icon">
+                        <span class="link-text">个人云盘</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="beian">
+                <a href="https://beian.miit.gov.cn/" target="_blank">吉ICP备18001688号-1</a>
+            </div>
         </div>
     </div>
 
@@ -217,8 +263,18 @@
             autoplay: true,
             path: 'assets/lottie/AnimatedSticker.json'
         });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.container').classList.toggle('dark-mode');
+
+            const button = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                button.innerHTML = '🌞'; // Light mode icon
+            } else {
+                button.innerHTML = '🌙'; // Dark mode icon
+            }
+        }
     </script>
 </body>
 </html>
-
-
