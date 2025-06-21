@@ -14,7 +14,7 @@
 
 点击下面的链接查看网页预览：
 
-- **GitHub Pages**：[访问个人主页](https://1888s.github.io/zhuye-html/)
+- **GitHub Pages**：[访问个人主页](https://hutaoee.github.io/zhuye-html/)
 
 ## 技术栈
 
